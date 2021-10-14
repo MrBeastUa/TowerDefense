@@ -10,9 +10,10 @@ public class MapCreator : MonoBehaviour
     public static MapCreator Instance => _instance;
 
     [SerializeField]
-    private Canvas _startCanvas, _editMapCanvas;
+    private Canvas _startCanvas, _editMapCanvas, _afterEditCanvas;
     private Map _map;
     private MapInfo info = new MapInfo();
+    private string enviromentPath = "", decorPath = "";
 
     public Map Map
     {
@@ -40,9 +41,9 @@ public class MapCreator : MonoBehaviour
     public void StartEditMode(string name, int x, int y, Package enviroment, Package decor = null)
     {
         //Save path of packages
-        info.enviromentPath = enviroment.Path;
+        enviromentPath = enviroment.Path;
         if(decor != null)
-        info.decorPath = decor.Path;
+        decorPath = decor.Path;
 
         CameraMove.instance.CameraStartPosition = new Vector3(((float)x)/2,((float)y)/2,0);
         
@@ -56,6 +57,12 @@ public class MapCreator : MonoBehaviour
       
     }
 
+    public void StartAfterEditMode()
+    {
+        _afterEditCanvas.gameObject.SetActive(true);
+        _editMapCanvas.gameObject.SetActive(false);
+    }
+
     public void SetCell(Cell cell,int x, int y)
     {
         _map.changeCell(cell, x, y);
@@ -63,7 +70,7 @@ public class MapCreator : MonoBehaviour
 
     public void Save()
     {
-        _map.toSave(info);
-        new SaveAndLoadMap().Save(info);
+        _map.toSave(info, enviromentPath, decorPath);
+        new JSONSaveMap().Save(info);
     }
 }

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class SaveAndLoadMap : MonoBehaviour
+public class JSONSaveMap
 {
     public MapInfo Load(string name)
     {
-        if (File.Exists($"Assets/Maps/{name}.json"))
+        string path = $"Assets/Resources/Maps/{name}.json";
+        if (File.Exists(path))
         {
-            using (var file = new StreamReader($"Assets/Maps/{name}.json"))
+            using (var file = new StreamReader(path))
             {
                 string text = file.ReadLine();
                 return JsonUtility.FromJson<MapInfo>(text);
@@ -23,13 +24,13 @@ public class SaveAndLoadMap : MonoBehaviour
 
     public void Save(MapInfo mapInfo)
     {
-        string path = $"Assets/Maps/{mapInfo.Name}.json";
+        string path = $"Assets/Resources/Maps/{mapInfo.Name}.json";
 
         if (!File.Exists(path))
         {
             using (var file = new StreamWriter(path))
             {
-                file.WriteLine(JsonUtility.ToJson(mapInfo));
+                file.WriteLine(JsonUtility.ToJson(mapInfo,true));
             }
         }
     }

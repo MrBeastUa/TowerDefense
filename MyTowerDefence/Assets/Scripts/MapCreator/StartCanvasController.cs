@@ -7,7 +7,7 @@ public class StartCanvasController : MonoBehaviour
 {
     //відповідає за початкові настройки: ім'я мапи, розміри та пакети графіки 
     [SerializeField]
-    private InputField _x, _y, _name, _error;
+    private InputField _x, _y, _name;
     [SerializeField]
     private Dropdown _decor, _enviromental;
     private Package decor, enviromental;
@@ -29,7 +29,8 @@ public class StartCanvasController : MonoBehaviour
     public void SetStartData()
     {
         int x, y;
-        if(File.Exists($"Assets/Maps/{_name.text}.json"))
+
+        if(File.Exists($"Assets/Resources/Maps/{_name.text}.json"))
         {
             ErrorOutput.instance.OutputError("Such a map name already exists");
         }

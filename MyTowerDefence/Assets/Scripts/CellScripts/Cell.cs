@@ -5,16 +5,7 @@ using UnityEngine;
 [SerializeField]
 public abstract class Cell : MonoBehaviour
 {
-    public CellInfo info = new CellInfo();
     //задає стандартні характеристики кожної клітинки;
-
-    public void OnEnable()
-    {
-        info.Name = name.Remove(name.IndexOf("(Clone)"));
-        info.x = (int)transform.position.x;
-        info.y = (int)transform.position.y;
-    }
-
     public virtual void ChangeCell(Cell cell)
     {
         MapCreator.Instance.SetCell(cell, (int)transform.position.x, (int)transform.position.y);
@@ -25,6 +16,13 @@ public abstract class Cell : MonoBehaviour
 [System.Serializable]
 public class CellInfo
 {
-    public string Name;
+    public string Path;
     public int x, y;
+
+    public CellInfo(int x, int y, string path)
+    {
+        Path = path;
+        this.x = x;
+        this.y = y;
+    }
 }

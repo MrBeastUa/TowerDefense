@@ -1,0 +1,221 @@
+{
+    "Name": "asdfgn",
+    "size": {
+        "x": 4,
+        "y": 3
+    },
+    "cells": [
+        {
+            "Path": "Prefabs/Cells/Test/Grass",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "Path": "Prefabs / Cells / Functional/EnemySpawner",
+            "x": 1,
+            "y": 0
+        },
+        {
+            "Path": "Prefabs/Cells/Test/Grass",
+            "x": 2,
+            "y": 0
+        },
+        {
+            "Path": "Prefabs/Cells/Test/Grass",
+            "x": 0,
+            "y": 1
+        },
+        {
+            "Path": "Prefabs / Cells / Functional/Road",
+            "x": 1,
+            "y": 1
+        },
+        {
+            "Path": "Prefabs / Cells / Functional/Road",
+            "x": 2,
+            "y": 1
+        },
+        {
+            "Path": "Prefabs / Cells / Functional/EnemySpawner",
+            "x": 0,
+            "y": 2
+        },
+        {
+            "Path": "Prefabs / Cells / Functional/Road",
+            "x": 1,
+            "y": 2
+        },
+        {
+            "Path": "Prefabs / Cells / Functional/DefPoint",
+            "x": 2,
+            "y": 2
+        },
+        {
+            "Path": "Prefabs/Cells/Test/Grass",
+            "x": 0,
+            "y": 3
+        },
+        {
+            "Path": "Prefabs / Cells / Functional/Road",
+            "x": 1,
+            "y": 3
+        },
+        {
+            "Path": "Prefabs / Cells / Functional/Road",
+            "x": 2,
+            "y": 3
+        }
+    ],
+    "portals": [
+        {
+            "position": {
+                "x": 0,
+                "y": 1
+            },
+            "monsters": [],
+            "ways": [
+                {
+                    "way": [
+                        {
+                            "x": 0,
+                            "y": 1
+                        },
+                        {
+                            "x": 1,
+                            "y": 1
+                        },
+                        {
+                            "x": 1,
+                            "y": 2
+                        },
+                        {
+                            "x": 2,
+                            "y": 2
+                        }
+                    ]
+                },
+                {
+                    "way": [
+                        {
+                            "x": 0,
+                            "y": 1
+                        },
+                        {
+                            "x": 1,
+                            "y": 1
+                        },
+                        {
+                            "x": 2,
+                            "y": 1
+                        },
+                        {
+                            "x": 2,
+                            "y": 2
+                        }
+                    ]
+                },
+                {
+                    "way": [
+                        {
+                            "x": 0,
+                            "y": 1
+                        },
+                        {
+                            "x": 1,
+                            "y": 1
+                        },
+                        {
+                            "x": 2,
+                            "y": 1
+                        },
+                        {
+                            "x": 3,
+                            "y": 1
+                        },
+                        {
+                            "x": 3,
+                            "y": 2
+                        },
+                        {
+                            "x": 2,
+                            "y": 2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "position": {
+                "x": 2,
+                "y": 0
+            },
+            "monsters": [],
+            "ways": [
+                {
+                    "way": [
+                        {
+                            "x": 2,
+                            "y": 0
+                        },
+                        {
+                            "x": 2,
+                            "y": 1
+                        },
+                        {
+                            "x": 2,
+                            "y": 2
+                        }
+                    ]
+                },
+                {
+                    "way": [
+                        {
+                            "x": 2,
+                            "y": 0
+                        },
+                        {
+                            "x": 2,
+                            "y": 1
+                        },
+                        {
+                            "x": 3,
+                            "y": 1
+                        },
+                        {
+                            "x": 3,
+                            "y": 2
+                        },
+                        {
+                            "x": 2,
+                            "y": 2
+                        }
+                    ]
+                },
+                {
+                    "way": [
+                        {
+                            "x": 2,
+                            "y": 0
+                        },
+                        {
+                            "x": 2,
+                            "y": 1
+                        },
+                        {
+                            "x": 1,
+                            "y": 1
+                        },
+                        {
+                            "x": 1,
+                            "y": 2
+                        },
+                        {
+                            "x": 2,
+                            "y": 2
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -16,7 +16,10 @@ public class AccItemsInfoLoad : MonoBehaviour
     private void Awake()
     {
         if (_instance == null)
+        {
             _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     public List<Package> DecorPackages => _decorPackages;
