@@ -22,8 +22,6 @@ public class EditCanvasContoller : MonoBehaviour
     [SerializeField]
     private Dropdown _packageTemplate;
 
-    [SerializeField]
-    private Package _functionalItemsPackage;
 
     public void SetDrawMode(int value)
     {
@@ -45,12 +43,12 @@ public class EditCanvasContoller : MonoBehaviour
         }
     }
 
-    public void AddPackages(Package enviroment, Package decor = null)
+    public void AddPackages(Package enviroment)//, Package decor = null)
     {
-        StorageCellsController.Instance.AddToPackage(Instantiate(_packageTemplate.gameObject, _packagesStorageUI.transform),_functionalItemsPackage);
-        StorageCellsController.Instance.AddToPackage(Instantiate(_packageTemplate.gameObject, _packagesStorageUI.transform), enviroment);
-        if(decor != null)
-            StorageCellsController.Instance.AddToPackage(Instantiate(_packageTemplate.gameObject, _packagesStorageUI.transform), decor);
+        StorageCellsController.Instance.AddToPackage(Instantiate(_packageTemplate.gameObject, _packagesStorageUI.transform),enviroment, true);
+        StorageCellsController.Instance.AddToPackage(Instantiate(_packageTemplate.gameObject, _packagesStorageUI.transform), enviroment, false);
+        //if(decor != null)
+        //    StorageCellsController.Instance.AddToPackage(Instantiate(_packageTemplate.gameObject, _packagesStorageUI.transform), decor);
     }
 }
 

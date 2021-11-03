@@ -1,0 +1,118 @@
+{
+    "Name": "3x3",
+    "size": {
+        "x": 3,
+        "y": 3
+    },
+    "cells": [
+        {
+            "Path": "Prefabs/Cells/Original//Functional/EnemySpawner",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "Path": "Prefabs/Cells/Original//Enviroment/Grass",
+            "x": 1,
+            "y": 0
+        },
+        {
+            "Path": "Prefabs/Cells/Original//Enviroment/Grass",
+            "x": 2,
+            "y": 0
+        },
+        {
+            "Path": "Prefabs/Cells/Original//Functional/Road",
+            "x": 0,
+            "y": 1
+        },
+        {
+            "Path": "Prefabs/Cells/Original//Functional/Road",
+            "x": 1,
+            "y": 1
+        },
+        {
+            "Path": "Prefabs/Cells/Original//Functional/Road",
+            "x": 2,
+            "y": 1
+        },
+        {
+            "Path": "Prefabs/Cells/Original//Enviroment/Grass",
+            "x": 0,
+            "y": 2
+        },
+        {
+            "Path": "Prefabs/Cells/Original//Functional/Road",
+            "x": 1,
+            "y": 2
+        },
+        {
+            "Path": "Prefabs/Cells/Original//Functional/DefPoint",
+            "x": 2,
+            "y": 2
+        }
+    ],
+    "portals": [
+        {
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "monsters": [
+                {
+                    "path": "Assets/Resources/Monsters/Ninja",
+                    "count": 25
+                }
+            ],
+            "ways": [
+                {
+                    "way": [
+                        {
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "x": 1,
+                            "y": 0
+                        },
+                        {
+                            "x": 1,
+                            "y": 1
+                        },
+                        {
+                            "x": 1,
+                            "y": 2
+                        },
+                        {
+                            "x": 2,
+                            "y": 2
+                        }
+                    ]
+                },
+                {
+                    "way": [
+                        {
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "x": 1,
+                            "y": 0
+                        },
+                        {
+                            "x": 1,
+                            "y": 1
+                        },
+                        {
+                            "x": 2,
+                            "y": 1
+                        },
+                        {
+                            "x": 2,
+                            "y": 2
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

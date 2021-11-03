@@ -21,9 +21,9 @@ public class CameraMove : MonoBehaviour
         {
             _startPos = value;
             transform.position = new Vector3(_startPos.x, _startPos.y, transform.position.z);
-            if(_motion_limiter == 0)
-                _motion_limiter = (int)(_startPos.x*2);
-          }
+            if (_motion_limiter == 0)
+                _motion_limiter = (int)(_startPos.x * 2);
+        }
     }
 
     private void Awake()
@@ -34,7 +34,7 @@ public class CameraMove : MonoBehaviour
         _camera = GetComponent<Camera>();
         _startScrollPoint = _startPos;
     }
-    
+
     private void Update()
     {
         if (!EventSystem.current.IsPointerOverGameObject())
@@ -60,6 +60,6 @@ public class CameraMove : MonoBehaviour
                 _startScrollPoint = nextScrollPoint;
             }
         }
-
     }
+
 }

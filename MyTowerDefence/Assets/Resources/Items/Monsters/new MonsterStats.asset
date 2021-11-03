@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af760662d4ef8ac43b783789abcacc9a, type: 3}
-  m_Name: Functional Items
+  m_Script: {fileID: 11500000, guid: 9f39a2d649989814f8c9e263392cc935, type: 3}
+  m_Name: new MonsterStats
   m_EditorClassIdentifier: 
-  _name: Functional Items
-  _path: Prefabs/Cells/Functional
+  _maxHp: 100
+  _moveSpeed: 10
+  _startMonsterType: 0
+  _isArmored: 1
+  _maxArmor: 50
+  _protectionFactor: 0.5

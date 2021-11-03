@@ -59,16 +59,12 @@ public class Map : MonoBehaviour
         {
             for (int j = 0; j < size.y; j++)
             {
-                if (map[i, j].GetComponent<Cell>().GetType() == new DecorScript().GetType())
+                if (map[i, j].GetComponent<Cell>().GetType() == new EnviromentScript().GetType())
                 {
-                    mapInfo.cells.Add(new CellInfo(j, i, $"{decor}/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
-                }
-                else if (map[i, j].GetComponent<Cell>().GetType() == new EnviromentScript().GetType())
-                {
-                    mapInfo.cells.Add(new CellInfo(j, i, $"{enviroment}/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
+                    mapInfo.cells.Add(new CellInfo(j, i, $"{enviroment}/Enviroment/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
                 }
                 else
-                    mapInfo.cells.Add(new CellInfo(j, i, $"Prefabs / Cells / Functional/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
+                    mapInfo.cells.Add(new CellInfo(j, i, $"{enviroment}/Functional/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
             }
         }
 
@@ -105,7 +101,6 @@ public class MapInfo
 {
     public string Name;
     public Vector2Int size;
-    //public SaveType saveType;
     public List<CellInfo> cells = new List<CellInfo>();
     public List<PortalInfo> portals = new List<PortalInfo>();
 }

@@ -6,8 +6,8 @@ public class PopUpMenu : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 10;
-    [SerializeField]
-    private bool _isOpen = false;
+    
+    public bool isOpen = false;
     private Vector3 _startPosition;
     
 
@@ -19,7 +19,7 @@ public class PopUpMenu : MonoBehaviour
     private IEnumerator waitAndMove()
     {
         yield return new WaitForSeconds(0.01f);
-        if (!_isOpen)
+        if (!isOpen)
         {
             if (transform.position.x < 0)
             {
@@ -28,7 +28,7 @@ public class PopUpMenu : MonoBehaviour
             }
             else
             {
-                _isOpen = true;
+                isOpen = true;
             }
         }
         else
@@ -41,7 +41,7 @@ public class PopUpMenu : MonoBehaviour
             }
             else
             {
-                _isOpen = false;
+                isOpen = false;
             }
         }
     }
@@ -56,7 +56,7 @@ public class PopUpMenu : MonoBehaviour
         }
         else
         {
-            _isOpen = false;
+            isOpen = false;
         }
     } 
 

@@ -16,7 +16,6 @@ public class PortalInfo
         int nextCountWays = 1;
         while (nextCountWays != 0)//створення всіх можливих варіацій шляхів і додання в List
         {
-            Debug.Log(ways.Count);
             List<Way> newWays = new List<Way>();
             nextCountWays = 0;
             foreach (Way way in ways)//для кожного шляху знаходимо сусідні клітинки для останнього елемента

@@ -5,23 +5,15 @@ using UnityEngine;
 
 public class EnemyPortal : Cell, ISpawner
 {
-    private Dictionary<Monster,int> _toSpawn = new Dictionary<Monster, int>();
+    private Dictionary<GameObject,int> _toSpawn = new Dictionary<GameObject, int>();
     public void Spawn()
     {
         
     }
 
-    public void AddToSpawner(Monster monster, int count)
+    public void ChangeMonsterList()
     {
-        if (_toSpawn.Where(x => x.Key == monster) != null)
-            _toSpawn[monster] += count;
-        else
-            _toSpawn.Add(monster, count);
-    }
-
-    public void ChangeSpawner()
-    {
-
+        AfterEditCanvas.Instance.SetSpawnerData(_toSpawn);
     }
 
     public PortalInfo getPortalInfo(int[,] map)//заповнення MapInfo для передачі
@@ -29,7 +21,6 @@ public class EnemyPortal : Cell, ISpawner
         PortalInfo info = new PortalInfo();
         info.position = new Vector2Int((int)transform.position.x,(int)transform.position.y);
         info.FindWays(map);
-        Debug.Log(info.ways.Count);
         entityInfo(info.monsters);
         return info;
     }
@@ -38,7 +29,7 @@ public class EnemyPortal : Cell, ISpawner
     {
         entities.Clear();
         foreach (var entity in _toSpawn)
-            entities.Add(new EntityToSpawn(entity.Key.name.Remove(entity.Key.name.IndexOf("(Clone)")), entity.Value));
+            entities.Add(new EntityToSpawn(entity.Key.name, entity.Value));
     }
 }
 
