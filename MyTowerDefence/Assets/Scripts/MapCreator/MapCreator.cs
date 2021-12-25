@@ -9,13 +9,13 @@ public class MapCreator : MonoBehaviour
     //відповідає за передачу інформації між етапами побудови мапи
     private static MapCreator _instance;
     public static MapCreator Instance => _instance;
-    public CreatingEtap etap = CreatingEtap.Start;
+    public GameProcessData createdMap = new GameProcessData();
 
     [SerializeField]
     private Canvas _startCanvas, _editMapCanvas, _afterEditCanvas;
     private Map _map;
-    private MapInfo info = new MapInfo();
-    private string enviromentPath = "", decorPath = "";
+    private string enviromentPath = "";
+
     private Physics2DRaycaster _pr = null;
 
     public Map Map
@@ -32,8 +32,7 @@ public class MapCreator : MonoBehaviour
     }
     private void Awake()
     {
-        if (_instance == null)
-            _instance = this;
+        _instance = this;
     }
 
     private void Start()
@@ -41,31 +40,29 @@ public class MapCreator : MonoBehaviour
         _pr = GetComponent<Physics2DRaycaster>();
         _pr.enabled = false;
         _startCanvas.gameObject.SetActive(true);
+        GameData.Instance.changeState(GameState.MapCreator);
     }
 
-    public void StartEditMode(string name, int x, int y, Package enviroment, Package decor = null)
+    public void StartEditMode(string name, int x, int y ,int seed, Package enviroment)
     {
         //Save path of packages
-        etap = CreatingEtap.Edit;
         enviromentPath = enviroment.Path;
-        if(decor != null)
-        decorPath = decor.Path;
 
         CameraMove.instance.CameraStartPosition = new Vector3(((float)x)/2,((float)y)/2,0);
-        
+
+        createdMap.seed = seed;
         _editMapCanvas.gameObject.SetActive(true);
         _editMapCanvas.GetComponent<EditCanvasContoller>().AddPackages(enviroment);
+
         _map.Name = name;
         _map.Size = new Vector2Int(x,y);
        
         _startCanvas.gameObject.SetActive(false);
-      
     }
 
     public void StartAfterEditMode()
     {
         _pr.enabled = true;
-        etap = CreatingEtap.AfterEdit;
         _afterEditCanvas.gameObject.SetActive(true);
         _editMapCanvas.gameObject.SetActive(false);
     }
@@ -77,14 +74,38 @@ public class MapCreator : MonoBehaviour
 
     public void Save()
     {
-        _map.toSave(info, enviromentPath, decorPath);
-        new JSONSaveMap().Save(info);
+        _map.toSave(enviromentPath);
+
+        //Debug.Log(createdMap.questionsDifficultyInPercents.Count);
+        //Debug.Log(createdMap.seed);
+        //Debug.Log(createdMap.map.Name);
+        //Debug.Log(createdMap.map.size);
+        //Debug.Log(createdMap.map.cells.Count);
+        //Debug.Log(createdMap.portals.Count);
+        
+        new JSONSaveMap().Save(createdMap);
     }
 }
 
-public enum CreatingEtap
+[System.Serializable]
+public class GameProcessData
 {
-    Start,
-    Edit,
-    AfterEdit
+    public string Name;
+    public Vector2Int size;
+    public int seed;
+    public List<CellInfo> cells = new List<CellInfo>();
+    public List<int> questionsDifficultyInPercents = new List<int>();
+    public List<PortalInfo> portals = new List<PortalInfo>();
+
+    public GameProcessData() { }
+
+    public GameProcessData(GameProcessData data)
+    {
+        questionsDifficultyInPercents = data.questionsDifficultyInPercents;
+        Name = data.Name;
+        seed = data.seed;
+        size = data.size;
+        cells = data.cells;
+        portals = data.portals;
+    }
 }

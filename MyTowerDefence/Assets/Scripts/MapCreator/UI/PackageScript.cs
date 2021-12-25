@@ -9,7 +9,7 @@ public class PackageScript : MonoBehaviour
 
     public void ChangeValue(int value)
     {
-        if(value > 0)
+        if (value > 0)
             StorageCellsController.Instance.SelectCell(GetComponent<Dropdown>(), value - 1);
     }
 

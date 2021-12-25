@@ -7,11 +7,13 @@ using UnityEngine;
 public class PortalInfo
 {
     public Vector2Int position;
-    public List<EntityToSpawn> monsters = new List<EntityToSpawn>();
-    public List<Way> ways = new List<Way>();
+    public MonstersWave[] waves;
+    public List<Way> ways;
 
-    public void FindWays(int[,] map)
+    public static void FindWays(int[,] map, EnemyPortal enemyPortal)
     {
+        List<Way> ways = enemyPortal.Ways;
+        Vector2Int position = new Vector2Int((int)enemyPortal.transform.position.x, (int)enemyPortal.transform.position.y);
         ways.Add(new Way(position, map.GetLength(0), map.GetLength(1)));
         int nextCountWays = 1;
         while (nextCountWays != 0)//створення всіх можливих варіацій шляхів і додання в List
@@ -57,9 +59,8 @@ public class PortalInfo
             ways.Remove(way);
     }
 
-    private List<Vector2Int> getNeighborhood(Way way, int[,] points)//пошук сусідніх клітинок на які можна перейти
+    private static List<Vector2Int> getNeighborhood(Way way, int[,] points)//пошук сусідніх клітинок на які можна перейти
     {
-
         Vector2Int point = way.way.Last();
         List<Vector2Int> result = new List<Vector2Int>();
         if (points[point.x, point.y] > 0 && points[point.x, point.y] < 3)
@@ -103,3 +104,54 @@ public class PortalInfo
         return result;
     }
 }
+
+[System.Serializable]
+public class Way//Шлях і методи його подання для збереження в JSON і подальшого використання
+{
+    public List<Vector2Int> way = new List<Vector2Int>();
+    public bool[,] visitedMap;
+
+    public Way(Vector2Int point, int mapX, int mapY)
+    {
+        way.Add(point);
+        visitedMap = new bool[mapX, mapY];
+        visitedMap[point.x, point.y] = true;
+    }
+
+    public Way(Way way, Vector2Int point)
+    {
+        visitedMap = new bool[way.visitedMap.GetLength(0), way.visitedMap.GetLength(1)];
+        for (int i = 0; i < way.visitedMap.GetLength(0); i++)
+            for (int j = 0; j < way.visitedMap.GetLength(1); j++)
+                visitedMap[i, j] = way.visitedMap[i, j];
+
+
+
+        this.way.AddRange(way.way);
+        this.way.Add(point);
+        visitedMap[point.x, point.y] = true;
+    }
+
+    public static bool operator !=(Way way1, Way way2)
+    {
+        if (way1.way.Count != way2.way.Count)
+            return true;
+        for (int i = 0; i < way1.way.Count; i++)
+            if (way1.way[i] != way2.way[i])
+                return true;
+
+        return false;
+    }
+
+    public static bool operator ==(Way way1, Way way2)
+    {
+        if (way1.way.Count != way2.way.Count)
+            return false;
+        for (int i = 0; i < way1.way.Count; i++)
+            if (way1.way[i] != way2.way[i])
+                return false;
+
+        return true;
+    }
+}
+

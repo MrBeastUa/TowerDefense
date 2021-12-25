@@ -10,13 +10,11 @@ public class Pencil : MonoBehaviour
     private Cell currentCell = null;
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        //Debug.Log("Try to change");
         if (collider.GetComponent<Cell>() != null)
         {
             if (currentCell != null && collider.GetComponent<Cell>().GetType() != currentCell.GetType())
             {
                 collider.GetComponent<Cell>().ChangeCell(currentCell);
-                //Debug.Log("Change");
             }
         }
     }
@@ -28,7 +26,6 @@ public class Pencil : MonoBehaviour
 
     private void OnEnable()
     {
-        //Debug.Log($"Set mode {StorageCellsController.Instance.drawMode}");
         switch (EditCanvasContoller.drawMode)
         {
             case DrawMode.Watch:

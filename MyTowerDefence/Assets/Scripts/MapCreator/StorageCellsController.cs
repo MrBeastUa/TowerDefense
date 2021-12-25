@@ -17,22 +17,21 @@ public class StorageCellsController : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance == null)
-            _instance = this;
+        _instance = this;
     }
 
-    public void AddToPackage(GameObject package, Package packageInfo, bool isFunctional)
+    public void AddToPackage(GameObject package, Package packageInfo, bool isFunctional = false)
     {
         Dropdown dropdown = package.GetComponent<Dropdown>();
         List<GameObject> cells;
         if (isFunctional)
         {
-            cells = Resources.LoadAll<GameObject>(packageInfo.Path + "Functional").ToList();
+            cells = Resources.LoadAll<GameObject>(packageInfo.Path + "/Functional").ToList();
             package.transform.GetChild(0).GetComponent<Text>().text = "Functional";
         }
         else
         {
-            cells = Resources.LoadAll<GameObject>(packageInfo.Path + "Enviroment").ToList();
+            cells = Resources.LoadAll<GameObject>(packageInfo.Path + "/Enviroment").ToList();
             package.transform.GetChild(0).GetComponent<Text>().text = "Enviroment";
         }
         dropdown.options.AddRange(cells.Select(cell => new Dropdown.OptionData() { text = cell.name, image = cell.GetComponent<SpriteRenderer>().sprite }));
