@@ -16,7 +16,21 @@ public class Map : MonoBehaviour
         set
         {
             size = value;
-            createBlankMap();
+            if (size.x > 0 && size.y > 0)
+            {
+                if (map != null)
+                    for (int i = 0; i < size.x; i++)
+                        for (int j = 0; j < size.y; j++)
+                            Destroy(map[i, j]);
+
+                map = new GameObject[size.x, size.y];
+                for (int i = 0; i < size.x; i++)
+                    for (int j = 0; j < size.y; j++)
+                    {
+                        map[i, j] = Instantiate(StorageCellsController.Instance.blankCell.gameObject, transform);
+                        map[i, j].transform.position = new Vector2(i, j);
+                    }
+            }
         }
     }
 
@@ -31,76 +45,36 @@ public class Map : MonoBehaviour
         map[x, y].transform.position = new Vector3(x, y, 0);
     }
 
-    private void createBlankMap()
+    public void toSave(string enviroment)
     {
-        if (size.x > 0 && size.y > 0)
-        {
-            if (map != null)
-                for (int i = 0; i < size.x; i++)
-                    for (int j = 0; j < size.y; j++)
-                        Destroy(map[i, j]);
+        MapCreator.Instance.createdMap.Name = Name;
+        MapCreator.Instance.createdMap.size = size;
 
-            map = new GameObject[size.x, size.y];
-            for (int i = 0; i < size.x; i++)
-                for (int j = 0; j < size.y; j++)
-                {
-                    map[i, j] = Instantiate(StorageCellsController.Instance.blankCell.gameObject, transform);
-                    map[i, j].transform.position = new Vector2(i, j);
-                }
-        }
-    }
-
-    public void toSave(MapInfo mapInfo, string enviroment, string decor = "")
-    {
-        int[,] intMap = returnNumMap();
-        mapInfo.Name = Name;
-        mapInfo.size = size;
-        for(int i = 0; i < size.x; i++)
-        {
-            for (int j = 0; j < size.y; j++)
-            {
-                if (map[i, j].GetComponent<Cell>().GetType() == new EnviromentScript().GetType())
-                {
-                    mapInfo.cells.Add(new CellInfo(j, i, $"{enviroment}/Enviroment/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
-                }
-                else
-                    mapInfo.cells.Add(new CellInfo(j, i, $"{enviroment}/Functional/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
-            }
-        }
-
-        foreach(var cell in map)
-        {
-            if (cell.GetComponent<Cell>().GetType() == new EnemyPortal().GetType())
-            {
-                mapInfo.portals.Add(cell.GetComponent<EnemyPortal>().getPortalInfo(intMap));
-            }
-        }
-    }
-
-    public int[,] returnNumMap()//повертає мапу зі значеннями 0 - непрохідні об'єкти, 1 - дорога, 2 - старт, 3 - кінець
-    {
-        int[,] result = new int[map.GetLength(0), map.GetLength(1)];
-        for(int i = 0; i< result.GetLength(0); i++)
-            for(int j = 0; j<result.GetLength(1); j++)
+        int[,] intMap = new int [map.GetLength(0), map.GetLength(1)];
+        for (int i = 0; i < intMap.GetLength(0); i++)
+            for (int j = 0; j < intMap.GetLength(1); j++)
             {
                 if (map[i, j].GetComponent<Cell>() is EnemyPortal)
-                    result[i, j] = 2;
+                    intMap[i, j] = 2;
                 else if (map[i, j].GetComponent<Cell>() is DefendersPortal)
-                    result[i, j] = 3;
+                    intMap[i, j] = 3;
                 else if (map[i, j].GetComponent<Cell>() is Road)
-                    result[i, j] = 1;
-                else result[i, j] = 0;
+                    intMap[i, j] = 1;
+                else intMap[i, j] = 0;
             }
 
-        return result;
-    }
-}
+        for(int i = 0; i < size.x; i++)
+            for (int j = 0; j < size.y; j++)
+                if (map[i, j].GetComponent<Cell>().GetType() == new EnviromentScript().GetType())
+                    MapCreator.Instance.createdMap.cells.Add(new CellInfo(j, i, $"{enviroment}/Enviroment/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
+                else
+                    MapCreator.Instance.createdMap.cells.Add(new CellInfo(j, i, $"{enviroment}/Functional/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
 
-[System.Serializable]
-public class MapInfo
-{
-    public string Name;
-    public Vector2Int size;
-    public List<CellInfo> cells = new List<CellInfo>();
-    public List<PortalInfo> portals = new List<PortalInfo>();
+        foreach (var cell in map)
+            if (cell.GetComponent<Cell>().GetType() == new EnemyPortal().GetType())
+            {
+                cell.GetComponent<EnemyPortal>().FindWay(intMap);
+                MapCreator.Instance.createdMap.portals.Add(cell.GetComponent<EnemyPortal>().GetInfo);
+            }
+    }
 }

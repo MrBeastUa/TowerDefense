@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af760662d4ef8ac43b783789abcacc9a, type: 3}
-  m_Name: Test Decor
+  m_Name: Original
   m_EditorClassIdentifier: 
-  _name: Test
-  _path: Prefabs/Cells/Test
+  _name: Original
+  _path: Prefabs/Cells/Original

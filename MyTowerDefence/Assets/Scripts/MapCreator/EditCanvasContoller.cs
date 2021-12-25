@@ -43,12 +43,10 @@ public class EditCanvasContoller : MonoBehaviour
         }
     }
 
-    public void AddPackages(Package enviroment)//, Package decor = null)
+    public void AddPackages(Package enviroment)
     {
         StorageCellsController.Instance.AddToPackage(Instantiate(_packageTemplate.gameObject, _packagesStorageUI.transform),enviroment, true);
-        StorageCellsController.Instance.AddToPackage(Instantiate(_packageTemplate.gameObject, _packagesStorageUI.transform), enviroment, false);
-        //if(decor != null)
-        //    StorageCellsController.Instance.AddToPackage(Instantiate(_packageTemplate.gameObject, _packagesStorageUI.transform), decor);
+        StorageCellsController.Instance.AddToPackage(Instantiate(_packageTemplate.gameObject, _packagesStorageUI.transform), enviroment);
     }
 }
 

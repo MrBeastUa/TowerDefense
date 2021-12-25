@@ -7,28 +7,33 @@ public class StartCanvasController : MonoBehaviour
 {
     //відповідає за початкові настройки: ім'я мапи, розміри та пакети графіки 
     [SerializeField]
-    private InputField _x, _y, _name;
+    private InputField _x, _y, _name, _seed;
     [SerializeField]
-    private Dropdown _decor, _enviromental;
-    private Package decor, enviromental;
+    private Dropdown _enviromental;
+    [SerializeField]
+    private GameObject _difficultyPanel;
+
+    private Package enviromental;
     private AccItemsInfoLoad _infoLoader;
+
     private void OnEnable()
     {
         _infoLoader = AccItemsInfoLoad.Instance;
 
-        if (_decor.options.Count == 0 && _infoLoader.DecorPackages.Count != 0)
-            _decor.options.AddRange(_infoLoader.DecorPackages.Select(x => new Dropdown.OptionData() { text = x.Name }));
         if (_enviromental.options.Count == 0 && _infoLoader.EnviromentalPackages.Count != 0)
             _enviromental.options.AddRange(_infoLoader.EnviromentalPackages.Select(x => new Dropdown.OptionData() { text = x.Name }));
 
-        if(decor != null)
-        decor = _infoLoader.DecorPackages[0];
         enviromental = _infoLoader.EnviromentalPackages[0];
+    }
+
+    public void OpenDifficultyPanel()
+    {
+        _difficultyPanel.SetActive(!_difficultyPanel.activeSelf);
     }
 
     public void SetStartData()
     {
-        int x, y;
+        int x, y, seed;
 
         if(File.Exists($"Assets/Resources/Maps/{_name.text}.json"))
         {
@@ -46,7 +51,11 @@ public class StartCanvasController : MonoBehaviour
         {
 
         }
+        else if(!int.TryParse(_seed.text, out seed))
+        {
+
+        }
         else
-            MapCreator.Instance.StartEditMode(_name.text, x, y, enviromental, decor);
+            MapCreator.Instance.StartEditMode(_name.text, x, y, seed, enviromental);
     }
 }

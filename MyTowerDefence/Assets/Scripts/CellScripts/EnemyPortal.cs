@@ -2,105 +2,96 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class EnemyPortal : Cell, ISpawner
+[System.Serializable]
+public class EnemyPortal : Cell, IPointerClickHandler
 {
-    private Dictionary<GameObject,int> _toSpawn = new Dictionary<GameObject, int>();
-    public void Spawn()
+    private MonstersWave[] _monstersWaves = new MonstersWave[5] { new MonstersWave(), new MonstersWave(), new MonstersWave(), new MonstersWave(), new MonstersWave()};
+    public List<Way> Ways = new List<Way>();
+
+    public void FindWay(int[,] map)
     {
-        
+        PortalInfo.FindWays(map, this);
     }
 
-    public void ChangeMonsterList()
+    public MonstersWave getWave(int id)
     {
-        AfterEditCanvas.Instance.SetSpawnerData(_toSpawn);
+        return _monstersWaves[id];
     }
 
-    public PortalInfo getPortalInfo(int[,] map)//заповнення MapInfo для передачі
+    public PortalInfo GetInfo
     {
-        PortalInfo info = new PortalInfo();
-        info.position = new Vector2Int((int)transform.position.x,(int)transform.position.y);
-        info.FindWays(map);
-        entityInfo(info.monsters);
-        return info;
+        get
+        {
+            PortalInfo info = new PortalInfo();
+
+            info.waves = _monstersWaves;
+            info.ways = Ways;
+
+            return info;
+        }
     }
 
-    private void entityInfo(List<EntityToSpawn> entities)
+    private void openPortalMenu()
     {
-        entities.Clear();
-        foreach (var entity in _toSpawn)
-            entities.Add(new EntityToSpawn(entity.Key.name, entity.Value));
+        AfterEditUIController.Instance.openPortalMenu(this);
     }
-}
 
-public interface ISpawner
-{
-    void Spawn();
+    private void checkPortalInfo()
+    {
+
+    }
+
+    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+    {
+        GameState state = GameData.Instance.State;
+        switch (state)
+        {
+            case GameState.Game:
+                checkPortalInfo();
+                break;
+            case GameState.MapCreator:
+                openPortalMenu();
+                break;
+        }
+    }
 }
 
 [System.Serializable]
-public class Way//Шлях і методи його подання для збереження в JSON і подальшого використання
+public class MonstersWave
 {
-    public List<Vector2Int> way = new List<Vector2Int>();
-    public bool[,] visitedMap;
+    public Dictionary<GameObject, int> Monsters = new Dictionary<GameObject, int>();
+    [SerializeField]
+    private EntityToSpawn[] monsters;
+    public int minCountInGroup, maxCountInGroup;
+    public float GroupDelay;
+    public float DelayBetwGroups;
 
-    public Way(Vector2Int point, int mapX, int mapY)
+
+    public void onMonsterChange()
     {
-        way.Add(point);
-        createEmptyVisitedMatrix(mapX, mapY);
-        visitedMap[point.x, point.y] = true;
-    }
-
-    public Way(Way way, Vector2Int point)
-    {
-        visitedMap = new bool[way.visitedMap.GetLength(0), way.visitedMap.GetLength(1)];
-        for (int i = 0; i < way.visitedMap.GetLength(0); i++)
-            for (int j = 0; j < way.visitedMap.GetLength(1); j++)
-                visitedMap[i, j] = way.visitedMap[i, j];
-
-
-
-        this.way.AddRange(way.way);
-        this.way.Add(point);
-        visitedMap[point.x, point.y] = true;
-    }
-
-    private void createEmptyVisitedMatrix(int x, int y)
-    {
-        visitedMap = new bool[x, y];
-    }
-
-    public static bool operator !=(Way way1, Way way2)
-    {
-        if (way1.way.Count != way2.way.Count)
-            return true;
-        for (int i = 0; i < way1.way.Count; i++)
-            if (way1.way[i] != way2.way[i])
-                return true;
-
-        return false;
-    }
-
-    public static bool operator ==(Way way1, Way way2)
-    {
-        if (way1.way.Count != way2.way.Count)
-            return false;
-        for (int i = 0; i < way1.way.Count; i++)
-            if (way1.way[i] != way2.way[i])
-                return false;
-
-        return true;
+        monsters = Monsters.Select(x => new EntityToSpawn(x.Key.name, x.Value)).ToArray();
     }
 }
+
+[System.Serializable]
+public class MonstersWaveData
+{
+    public List<EntityToSpawn> Entities;
+    public float StackDelay;
+    public float DelayBetwStacks;
+}
+
 
 [System.Serializable]
 public class EntityToSpawn//інформація про кожного монстра, який появиться зі спавнера для збереження в JSON
 {
-    public string path = "Assets/Resources/Monsters/";
-    public int count = 1;
+    public string Path = "Assets/Resources/Monsters/";
+    public int Count = 1;
     public EntityToSpawn(string path, int count)
     {
-        this.path += path;
-        this.count = count;
+        Path += path;
+        Count = count;
     }
 }
