@@ -91,6 +91,7 @@ public class MapCreator : MonoBehaviour
 public class GameProcessData
 {
     public string Name;
+    public string Description;
     public Vector2Int size;
     public int seed;
     public List<CellInfo> cells = new List<CellInfo>();
@@ -103,6 +104,7 @@ public class GameProcessData
     {
         questionsDifficultyInPercents = data.questionsDifficultyInPercents;
         Name = data.Name;
+        Description = data.Description;
         seed = data.seed;
         size = data.size;
         cells = data.cells;

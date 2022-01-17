@@ -26,6 +26,7 @@ public class EnemyPortal : Cell, IPointerClickHandler
         {
             PortalInfo info = new PortalInfo();
 
+            info.position = new Vector2Int((int)transform.position.x, (int)transform.position.y);
             info.waves = _monstersWaves;
             info.ways = Ways;
 

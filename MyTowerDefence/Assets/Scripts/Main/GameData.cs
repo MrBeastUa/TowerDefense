@@ -8,6 +8,8 @@ public class GameData : MonoBehaviour
     public static GameData Instance => _instance;
 
     public GameState State { get; private set; } = GameState.Menu;
+    public Dataset CurrentDataset;
+    public GameProcessData CurrentMapData;
 
     private void Awake()
     {

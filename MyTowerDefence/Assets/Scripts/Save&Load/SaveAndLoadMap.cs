@@ -5,21 +5,22 @@ using System.IO;
 
 public class JSONSaveMap
 {
-    public GameProcessData Load(string name)
+    public GameProcessData Load(TextAsset text)
     {
-        string path = $"Assets/Resources/Maps/{name}.json";
-        if (File.Exists(path))
-        {
-            using (var file = new StreamReader(path))
-            {
-                string text = file.ReadLine();
-                return JsonUtility.FromJson<GameProcessData>(text);
-            }
-        }
-        else
-        {
-            return null;
-        }
+        return JsonUtility.FromJson<GameProcessData>(text.ToString());
+        //string path = $"Assets/Resources/Maps/{name}.json";
+        //if (File.Exists(path))
+        //{
+        //    using (var file = new StreamReader(path))
+        //    {
+        //        string text = file.ReadLine();
+        //        return JsonUtility.FromJson<GameProcessData>(text);
+        //    }
+        //}
+        //else
+        //{
+        //    return null;
+        //}
     }
 
     public void Save(GameProcessData info)
@@ -30,7 +31,7 @@ public class JSONSaveMap
         {
             using (var file = new StreamWriter(path))
             {
-                file.WriteLine(JsonUtility.ToJson(info, true));
+                file.WriteLine(JsonUtility.ToJson(info));
             }
         }
     }

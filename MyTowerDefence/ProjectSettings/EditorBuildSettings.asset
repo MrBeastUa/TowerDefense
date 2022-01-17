@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MapCreator.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 9894dd6b75712ae4a895f632110f377b
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 992e1117d6c2f2e46ba38bc8c11a6565
   m_configObjects: {}

@@ -4083,26 +4083,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createdMap:
-    questionsDifficultyInPercents: 
+    Name: 
+    size: {x: 0, y: 0}
     seed: 0
-    map:
-      Name: 
-      size: {x: 0, y: 0}
-      seed: 0
-      cells: []
+    cells: []
+    questionsDifficultyInPercents: 
     portals: []
   _startCanvas: {fileID: 1423136174}
   _editMapCanvas: {fileID: 1841512718}
   _afterEditCanvas: {fileID: 1973256885}
-  info:
-    questionsDifficultyInPercents: 
-    seed: 0
-    map:
-      Name: 
-      size: {x: 0, y: 0}
-      seed: 0
-      cells: []
-    portals: []
 --- !u!1 &527438931
 GameObject:
   m_ObjectHideFlags: 0
@@ -8662,7 +8651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1423136172
 MonoBehaviour:
   m_ObjectHideFlags: 0
