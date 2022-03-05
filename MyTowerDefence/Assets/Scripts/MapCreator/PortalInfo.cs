@@ -8,11 +8,10 @@ public class PortalInfo
 {
     public Vector2Int position;
     public MonstersWave[] waves;
-    public List<Way> ways;
+    public List<Way> ways = new List<Way>();
 
-    public static void FindWays(int[,] map, EnemyPortal enemyPortal)
+    public void FindWays(int[,] map, EnemyPortal enemyPortal)
     {
-        List<Way> ways = enemyPortal.Ways;
         Vector2Int position = new Vector2Int((int)enemyPortal.transform.position.x, (int)enemyPortal.transform.position.y);
         ways.Add(new Way(position, map.GetLength(0), map.GetLength(1)));
         int nextCountWays = 1;
@@ -31,7 +30,6 @@ public class PortalInfo
                         newWays.Add(new Way(way, point));
                         nextCountWays++;
                     }
-
                 else
                     newWays.Add(way);
             }
@@ -44,7 +42,7 @@ public class PortalInfo
         }
 
         //видалення тупикових шляхів та шляхів, які повторяються
-        List<Way> toDel = ways.Where(way => map[way.way.Last().y, way.way.Last().x] != 3).ToList();
+        List<Way> toDel = ways.Where(way => map[way.way.Last().x, way.way.Last().y] != 3).ToList();
 
         for (int i = 0; i < ways.Count; i++)
         {
@@ -57,6 +55,7 @@ public class PortalInfo
 
         foreach (Way way in toDel)
             ways.Remove(way);
+
     }
 
     private static List<Vector2Int> getNeighborhood(Way way, int[,] points)//пошук сусідніх клітинок на які можна перейти

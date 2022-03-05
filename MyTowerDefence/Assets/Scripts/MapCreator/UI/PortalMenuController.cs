@@ -46,7 +46,6 @@ public class PortalMenuController : MonoBehaviour
         _groupDelay.text = _currentWave.GroupDelay.ToString();
         _betwGroupsDelay.text = _currentWave.DelayBetwGroups.ToString();
         GetAllChilds(_monstersContainer.transform).ForEach(x => {
-            Debug.Log("Delete");
             Destroy(x.gameObject);
         });
         _addedMonsters.Clear();
@@ -61,7 +60,7 @@ public class PortalMenuController : MonoBehaviour
 
     public List<GameObject> getMonstersInWave()
     {
-        return _currentWave.Monsters.Select(x => x.Key).ToList();
+        return _currentWave.getAllMonsters();
     }
 
     #region MonsterPanelSettings
@@ -82,19 +81,18 @@ public class PortalMenuController : MonoBehaviour
 
     private void loadMonstersFromPortal()
     {
-        foreach (var monster in _currentWave.Monsters)
-            addToMonsterPanel(monster.Key.GetComponent<Monster>(), monster.Value);
+        for (int i = 0; i < _currentWave.Monsters.Count(); i++)
+            addToMonsterPanel(_currentWave.getMonsterById(i).Key.GetComponent<Monster>(), _currentWave.getMonsterById(i).Value);
     }
 
     public void saveMonstersToPortal()
     {
-        _currentWave.Monsters.Clear();
+        _currentWave.clearMonsterList();
         foreach(var temp in GetAllChilds(_monstersContainer.transform))
         {
             var controller = temp.GetComponent<MonsterPanelController>();
-            _currentWave.Monsters.Add(controller.returnData().Key, controller.returnData().Value);
+            _currentWave.addMonster(controller.returnData().Key, controller.returnData().Value);
         }
-        _currentWave.onMonsterChange();
     }
     #endregion
 

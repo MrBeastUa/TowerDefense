@@ -73,8 +73,7 @@ public class Map : MonoBehaviour
         foreach (var cell in map)
             if (cell.GetComponent<Cell>().GetType() == new EnemyPortal().GetType())
             {
-                cell.GetComponent<EnemyPortal>().FindWay(intMap);
-                MapCreator.Instance.createdMap.portals.Add(cell.GetComponent<EnemyPortal>().GetInfo);
+                MapCreator.Instance.createdMap.portals.Add(cell.GetComponent<EnemyPortal>().getInfo(intMap));
             }
     }
 }

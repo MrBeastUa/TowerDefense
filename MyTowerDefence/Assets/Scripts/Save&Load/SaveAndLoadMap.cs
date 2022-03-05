@@ -7,7 +7,9 @@ public class JSONSaveMap
 {
     public GameProcessData Load(TextAsset text)
     {
-        return JsonUtility.FromJson<GameProcessData>(text.ToString());
+        GameProcessData data = new GameProcessData();
+        JsonUtility.FromJsonOverwrite(text.ToString(), data);
+        return data;
         //string path = $"Assets/Resources/Maps/{name}.json";
         //if (File.Exists(path))
         //{
