@@ -50,14 +50,19 @@ public class EnemyPortal : Cell, IPointerClickHandler
 
     public IEnumerator startWave()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 1; i <= 5; i++)
         {
             yield return new WaitForSeconds(5);
+            UIController.ChangeWave(i);
             yield return StartCoroutine(createGroup());
+
+            yield return new WaitWhile(() => UIController.Map.childCount > 0);
+            
             MapSettings.Instance.currentWave++;
-            //Debug.Log($"Start next wave {MapSettings.Instance.currentWave}");
         }
 
+        UIController.ChangeWave(5);
+        UIController.Instance.EndGame();
     }
     private IEnumerator createGroup()
     {
