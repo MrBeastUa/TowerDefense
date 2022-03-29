@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e161e2102220b134d80f9b33dcfc2a81, type: 3}
+  m_Name: ArrowTower
+  m_EditorClassIdentifier: 
+  _bullet: {fileID: 1300405631952279233, guid: f1497c89617f8d049a909c5723e5a172, type: 3}
+  _bulletFlyightSpeed: 0.2
+  _attackRadius: 2
+  _attackDamage: 10
+  _attackSpeed: 40
+  _isAOE: 0
+  _radius: 0
+  _attackDamageStartMultiplier: 0
+  _attackSpeedStartMultiplier: 1
+  _radiusStartMultiplier: 1

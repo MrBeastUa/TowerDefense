@@ -12,7 +12,7 @@ public class Pencil : MonoBehaviour
     {
         if (collider.GetComponent<Cell>() != null)
         {
-            if (currentCell != null && collider.GetComponent<Cell>().GetType() != currentCell.GetType())
+            if (currentCell != null)
             {
                 collider.GetComponent<Cell>().ChangeCell(currentCell);
             }

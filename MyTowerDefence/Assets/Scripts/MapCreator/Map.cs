@@ -66,15 +66,14 @@ public class Map : MonoBehaviour
         for(int i = 0; i < size.x; i++)
             for (int j = 0; j < size.y; j++)
                 if (map[i, j].GetComponent<Cell>().GetType() == new EnviromentScript().GetType())
-                    MapCreator.Instance.createdMap.cells.Add(new CellInfo(j, i, $"{enviroment}/Enviroment/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
+                    MapCreator.Instance.createdMap.cells.Add(new CellInfo(i, j, $"{enviroment}/Enviroment/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
                 else
-                    MapCreator.Instance.createdMap.cells.Add(new CellInfo(j, i, $"{enviroment}/Functional/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
+                    MapCreator.Instance.createdMap.cells.Add(new CellInfo(i, j, $"{enviroment}/Functional/{map[i, j].GetComponent<Cell>().name.Remove(map[i, j].GetComponent<Cell>().name.IndexOf("(Clone)"))}"));
 
         foreach (var cell in map)
             if (cell.GetComponent<Cell>().GetType() == new EnemyPortal().GetType())
             {
-                cell.GetComponent<EnemyPortal>().FindWay(intMap);
-                MapCreator.Instance.createdMap.portals.Add(cell.GetComponent<EnemyPortal>().GetInfo);
+                MapCreator.Instance.createdMap.portals.Add(cell.GetComponent<EnemyPortal>().getInfo(intMap));
             }
     }
 }
