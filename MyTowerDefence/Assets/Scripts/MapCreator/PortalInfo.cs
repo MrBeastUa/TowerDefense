@@ -21,7 +21,7 @@ public class PortalInfo
             nextCountWays = 0;
             foreach (Way way in ways)//для кожного шляху знаходимо сусідні клітинки для останнього елемента
             {
-                List<Vector2Int> nextPoints = getNeighborhood(way, map);
+                List<Vector2Int> nextPoints = getNeighbor(way, map);
 
                 //якщо точок нових нема зберігає поточний шлях в іншому випадку створює новий шлях для кожної сусідньої точки
                 if (nextPoints.Count > 0)
@@ -58,7 +58,7 @@ public class PortalInfo
 
     }
 
-    private static List<Vector2Int> getNeighborhood(Way way, int[,] points)//пошук сусідніх клітинок на які можна перейти
+    private static List<Vector2Int> getNeighbor(Way way, int[,] points)//пошук сусідніх клітинок на які можна перейти
     {
         Vector2Int point = way.way.Last();
         List<Vector2Int> result = new List<Vector2Int>();

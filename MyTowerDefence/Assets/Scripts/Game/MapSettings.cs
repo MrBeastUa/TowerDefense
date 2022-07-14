@@ -15,6 +15,8 @@ public class MapSettings : MonoBehaviour
     public Transform Map, MonsterList;
 
     [SerializeField]
+    private CameraMove _camera;
+    [SerializeField]
     private Transform _map;
     public SpawnController spawnController;
     private void Awake()
@@ -23,6 +25,8 @@ public class MapSettings : MonoBehaviour
         createMap();
         spawnController.Invoke();
         GameData.Instance.changeState(GameState.Game);
+        _camera.MapSize = new Vector2(GameData.Instance.CurrentMapData.size.x, GameData.Instance.CurrentMapData.size.y);
+        _camera.CameraStartPosition = new Vector2((float)GameData.Instance.CurrentMapData.size.x/2, (float)GameData.Instance.CurrentMapData.size.y/2);
     }
 
     private void createMap()

@@ -1,21 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "new MonsterStats", menuName = "Data/Monster Stats")]
 public class MonsterStats: ScriptableObject
 {
-    public static float _speedMultiplier = 1;
-    public static float _hpMultiplier = 1;
+    public static float _speedMultiplier = 0;
+    public static float _hpMultiplier = 0;
 
     [SerializeField]
     private int _maxHp;
-    public int MaxHp => (int)(_maxHp* _multiplierEfficiencyHp * _hpMultiplier);
+    public int MaxHp => (int)(_maxHp + _maxHp* _multiplierEfficiencyHp * _hpMultiplier);
 
-    [Range(1,99)]
+    [Range(0,99)]
     [SerializeField]
-    private int _moveSpeed = 1;
-    public float MoveSpeed => ((float)_moveSpeed/100 * _multiplierEfficiencySpeed * _speedMultiplier);
+    private float _moveSpeed = 1;
+    public float MoveSpeed => ((float)_moveSpeed / 100 + (float)_moveSpeed/100 * _multiplierEfficiencySpeed * _speedMultiplier);
 
     [Header("Standart HP multiplier")]
     [SerializeField]

@@ -15,10 +15,8 @@ MonoBehaviour:
   _bullet: {fileID: 617765699231020597, guid: 203827e083db73142b5e10033c826775, type: 3}
   _bulletFlyightSpeed: 0.1
   _attackRadius: 1.5
-  _attackDamage: 10
-  _attackSpeed: 60
-  _isAOE: 1
-  _radius: 1
-  _attackDamageStartMultiplier: 1
-  _attackSpeedStartMultiplier: 1
-  _radiusStartMultiplier: 1
+  _attackDamage: 200
+  _attackSpeed: 30
+  _radius: 0.75
+  _attackDamageStartMultiplier: 0.8
+  _attackSpeedStartMultiplier: 0.25

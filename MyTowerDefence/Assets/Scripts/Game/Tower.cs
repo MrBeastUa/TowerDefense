@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
     [SerializeField]
     private TowerStats _stats;
-    //[SerializeField]
-    //private Monster _target;
+    [SerializeField]
+    private Transform _startBulletPosition;
     private bool _isChangedTarget = false;
     private bool _isStarted = false;
     List<Monster> _monsters = new List<Monster>();
 
+
+    public double AttackDamage => _stats.AttackDamage;
+    public double AttackSpeed => _stats.AttackSpeed;
+    public double AOERadius => _stats.Radius;
 
     private void Awake()
     {
@@ -62,7 +65,7 @@ public class Tower : MonoBehaviour
         {
             var bullet = Instantiate(_stats.Bullet);
             bullet.transform.localRotation = transform.localRotation;
-            bullet.GetComponent<IBullet>().SetTarget(_stats.AttackDamage, _stats.BulletsSpeed,_stats.AttackRadius ,transform.position, _monsters.First(), _stats.IsAOE, _stats.Radius);
+            bullet.GetComponent<IBullet>().SetTarget(_stats, _startBulletPosition.position, _monsters);
             if (!_isChangedTarget)
             {
                 yield return new WaitForSeconds(_stats.AttackSpeed);

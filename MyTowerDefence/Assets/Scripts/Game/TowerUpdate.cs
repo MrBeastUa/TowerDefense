@@ -17,13 +17,15 @@ public class TowerUpdate : MonoBehaviour
     private GameObject _quizStorage;
     [SerializeField]
     private GameObject _buttonTemplate;
-    [SerializeField]
-    private Text _problem;
+
+    public Text Problem;
 
     private Dataset _dataset;
     private Question _question;
     private List<string> _result = new List<string>();
 
+    private string _currentAnswer = "";
+    
     private void Start()
     {
         _instance = this;
@@ -33,7 +35,8 @@ public class TowerUpdate : MonoBehaviour
     public void FindQuestions()
     {
         _question = _dataset.Questions[Random.Range(0, _dataset.Questions.Count)];
-        _problem.text = _question.Problem;
+        Problem.text = _question.Problem;
+
         _result.Add(_question.Result);
 
         for (int i = 0; i < 3; i++)
@@ -52,14 +55,20 @@ public class TowerUpdate : MonoBehaviour
         }
     }
 
-    public void selectResult(string result)
+    public void openResult(string text)
     {
-        if (_question.Result == result)
+        _currentAnswer = text;
+        Problem.text = $"{_question.Problem} {text}";
+    }
+
+    public void selectResult()
+    {
+        if (_question.Result == _currentAnswer)
         {
             UIController.correctAnswerInfo++;
             Debug.Log("Правильно");
 
-            TowerStats.setAttackMultiplier(0.05f);
+            TowerStats.setAttackMultiplier(0.1f);
             TowerStats.setAttackSpeedMultiplier(0.1f);
         }
         else

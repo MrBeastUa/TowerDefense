@@ -11,11 +11,11 @@ public class ResultTemplate : MonoBehaviour
     public void Init(string text)
     {
         _result = text;
-        _text.text = text;
+        _text.text = text.Substring(0, (text.Length <= 50) ? text.Length : 50) + "...";
     }
 
-    public void selectResult()
+    public void openResult()
     {
-        TowerUpdate.Instance.selectResult(_result);
+        TowerUpdate.Instance.openResult(_result);
     }
 }

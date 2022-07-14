@@ -66,7 +66,8 @@ public class PortalMenuController : MonoBehaviour
     #region MonsterPanelSettings
     public void addToMonsterPanel(Monster monster, int count = 0)
     {
-        if (!_addedMonsters.Find(x => monster))
+        Debug.Log(_addedMonsters.Count());
+        if (!_addedMonsters.Find(x => x == monster))
         {
             _addedMonsters.Add(monster);
             GameObject template = Instantiate(_monsterInPanelTemp, _monstersContainer.transform);

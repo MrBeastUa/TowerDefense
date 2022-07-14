@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: ArrowTower
   m_EditorClassIdentifier: 
   _bullet: {fileID: 1300405631952279233, guid: f1497c89617f8d049a909c5723e5a172, type: 3}
-  _bulletFlyightSpeed: 0.2
+  _bulletFlyightSpeed: 0.3
   _attackRadius: 2
-  _attackDamage: 10
-  _attackSpeed: 40
-  _isAOE: 0
+  _attackDamage: 1000
+  _attackSpeed: 300
   _radius: 0
-  _attackDamageStartMultiplier: 0
-  _attackSpeedStartMultiplier: 1
-  _radiusStartMultiplier: 1
+  _attackDamageStartMultiplier: 1
+  _attackSpeedStartMultiplier: 0.4

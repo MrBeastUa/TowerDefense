@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +10,7 @@ public class Monster : MonoBehaviour, IDamagable
     private MonsterStats _stats;
     [SerializeField]
     public List<Vector2Int> Way { private get; set; }
+    public MonsterStats Stats => _stats;
 
     private Animator animator;
     private float healthPercents = 1;
@@ -31,7 +31,6 @@ public class Monster : MonoBehaviour, IDamagable
 
     public void TakeDamage(int inputDamage)
     {
-
         if (hpBar.value == 1)
             hpBar.gameObject.SetActive(true);
         healthPercents -= (float)(inputDamage) / (float)(_stats.MaxHp);
@@ -56,11 +55,6 @@ public class Monster : MonoBehaviour, IDamagable
     {
         if (!_isEnd)
         {
-            //if(animator != null)
-            //{
-            //    animator
-            //}
-
             Vector2 vector = new Vector2(Way[_nextPoint].x - Way[_nextPoint - 1].x, Way[_nextPoint].y - Way[_nextPoint - 1].y).normalized;
 
             if (vector.x < 0 && _rightRotation)

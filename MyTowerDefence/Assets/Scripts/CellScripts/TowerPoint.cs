@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class TowerPoint : Cell, IPointerClickHandler
 {
-    private bool _isEmpty = false;
+    private bool _isEmpty = true;
     private GameObject _tower;
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -13,10 +13,9 @@ public class TowerPoint : Cell, IPointerClickHandler
         switch (state)
         {
             case GameState.Game:
-                if(!_isEmpty)
+                if(_isEmpty)
                 {
                     TowersController.Instance.openShop(this);
-                    _isEmpty = true;
                 }
                 break;
             case GameState.MapCreator:
@@ -28,6 +27,7 @@ public class TowerPoint : Cell, IPointerClickHandler
     public void BuildTower(GameObject tower)
     {
         _tower = tower;
+        _isEmpty = false;
         Instantiate(tower).transform.position = transform.position;
     }
 }

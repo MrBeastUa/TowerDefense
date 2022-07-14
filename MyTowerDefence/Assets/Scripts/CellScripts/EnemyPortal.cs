@@ -75,7 +75,7 @@ public class EnemyPortal : Cell, IPointerClickHandler
                 monstersCount = MonstersWaves[MapSettings.Instance.currentWave - 1].Monsters.Select(x => x.Count).Sum();
 
             yield return StartCoroutine(spawnMonster());
-            yield return new WaitForSeconds(MonstersWaves[MapSettings.Instance.currentWave].DelayBetwGroups);
+            yield return new WaitForSeconds(MonstersWaves[MapSettings.Instance.currentWave - 1].DelayBetwGroups);
         }
     }
 
@@ -105,9 +105,6 @@ public class EnemyPortal : Cell, IPointerClickHandler
         GameState state = GameData.Instance.State;
         switch (state)
         {
-            //case GameState.Game:
-            //    checkPortalInfo();
-            //    break;
             case GameState.MapCreator:
                 openPortalMenu();
                 break;
@@ -127,10 +124,8 @@ public class MonstersWave
 
     public void LoadMonsters(List<EntityToSpawn> entities)
     {
-        //if (value.GroupBy(x => x.Path).Select(x => x.First()).Count() == value.Count())
         _monsters.Clear();
 
-        
         entities.ForEach(x => {
             if(Resources.Load<GameObject>(x.Path))
                 _monsters.Add(Resources.Load<GameObject>(x.Path), x.Count);

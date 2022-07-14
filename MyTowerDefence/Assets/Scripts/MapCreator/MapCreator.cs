@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -49,6 +47,7 @@ public class MapCreator : MonoBehaviour
         enviromentPath = enviroment.Path;
 
         CameraMove.instance.CameraStartPosition = new Vector3(((float)x)/2,((float)y)/2,0);
+        CameraMove.instance.MapSize = new Vector2(x, y);
 
         createdMap.seed = seed;
         _editMapCanvas.gameObject.SetActive(true);
@@ -74,15 +73,7 @@ public class MapCreator : MonoBehaviour
 
     public void Save()
     {
-        _map.toSave(enviromentPath);
-
-        //Debug.Log(createdMap.questionsDifficultyInPercents.Count);
-        //Debug.Log(createdMap.seed);
-        //Debug.Log(createdMap.map.Name);
-        //Debug.Log(createdMap.map.size);
-        //Debug.Log(createdMap.map.cells.Count);
-        //Debug.Log(createdMap.portals.Count);
-        
+        _map.toSave(enviromentPath);        
         new JSONSaveMap().Save(createdMap);
     }
 }
@@ -102,7 +93,7 @@ public class GameProcessData
 
     public GameProcessData(GameProcessData data)
     {
-        questionsDifficultyInPercents = data.questionsDifficultyInPercents;
+        //questionsDifficultyInPercents = data.questionsDifficultyInPercents;
         Name = data.Name;
         Description = data.Description;
         seed = data.seed;

@@ -12,16 +12,20 @@ public class TowerShopItem : MonoBehaviour
     [SerializeField]
     private Text _damage;
     [SerializeField]
-    private Text _isAoe;
+    private Text _aoe;
     [SerializeField]
     private Text _attackSpeed;
 
     private GameObject _tower;
-    public void InitItem(GameObject tower)
+    public void InitItem(Tower tower)
     {
-        _tower = tower;
+        _tower = tower.gameObject;
         _image.sprite = tower.GetComponent<SpriteRenderer>().sprite;
-        _name.text = tower.name;        
+        _name.text = tower.name;
+
+        _damage.text = tower.AttackDamage.ToString();
+        _aoe.text = tower.AOERadius.ToString();
+        _attackSpeed.text = tower.AttackSpeed.ToString();
     }
 
     public void selectTower()

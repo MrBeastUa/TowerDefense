@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "new TowerStats", menuName = "Data/Tower Stats")]
 public class TowerStats : ScriptableObject
 {
-    private static float _attackDamageMultiplier = 1;
-    private static float _attackSpeedMultiplier = 1;
-    private static float _aoeRadiusMultiplier = 1;
+    private static float _attackDamageMultiplier = 0;
+    private static float _attackSpeedMultiplier = 0;
 
     [SerializeField]
     GameObject _bullet;
@@ -28,12 +25,7 @@ public class TowerStats : ScriptableObject
     [Header("Number of attacks per second")]
     [Min(0)][SerializeField]
     private float _attackSpeed;
-    public float AttackSpeed => 60/_attackSpeed * _attackSpeedMultiplier * _attackSpeedStartMultiplier;
-
-    [Header("Projectile explosion radius (in cells)")]
-    [SerializeField]
-    private bool _isAOE;
-    public bool IsAOE => _isAOE;
+    public float AttackSpeed => 60 / _attackSpeed + 60 / _attackSpeed * _attackSpeedMultiplier * _attackSpeedStartMultiplier;
 
     [Header("Tower attack radius (in cells)")]
     [Min(0)][SerializeField]
@@ -42,20 +34,13 @@ public class TowerStats : ScriptableObject
 
     [Header("")]
     [Min(0)][SerializeField]
-    private float _attackDamageStartMultiplier = 1;
+    private float _attackDamageStartMultiplier = 0;
     [Min(0)][SerializeField]
-    private float _attackSpeedStartMultiplier = 1;
-    [Min(0)][SerializeField]
-    private float _radiusStartMultiplier = 1;
+    private float _attackSpeedStartMultiplier = 0;
 
     public static void setAttackMultiplier(float value)
     {
         _attackDamageMultiplier += value;
-    }
-
-    public static void setAoeRadiusMultiplier(float value)
-    {
-        _aoeRadiusMultiplier += value;
     }
 
     public static void setAttackSpeedMultiplier(float value)

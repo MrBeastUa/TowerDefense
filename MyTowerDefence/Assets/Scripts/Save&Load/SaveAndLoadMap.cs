@@ -10,19 +10,6 @@ public class JSONSaveMap
         GameProcessData data = new GameProcessData();
         JsonUtility.FromJsonOverwrite(text.ToString(), data);
         return data;
-        //string path = $"Assets/Resources/Maps/{name}.json";
-        //if (File.Exists(path))
-        //{
-        //    using (var file = new StreamReader(path))
-        //    {
-        //        string text = file.ReadLine();
-        //        return JsonUtility.FromJson<GameProcessData>(text);
-        //    }
-        //}
-        //else
-        //{
-        //    return null;
-        //}
     }
 
     public void Save(GameProcessData info)

@@ -1,42 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CommonBullet : MonoBehaviour, IBullet
 {
-    private float _flightSpeed = 0, _attackDistance = 0;
-    private int _damage = 0;
+    TowerStats _stats;
     private Vector2 _startPoint, _targetPosition;
     private Monster _target;
 
     private Vector2 _lastVector = new Vector2(0, 0);
-    private bool _isInited = false, _targetHitted = false;
-
-    private int count = 0;
 
     private void FixedUpdate()
     {
-        if (_isInited)
-        {
-            BulletFlight();
-            Hit();
-        }
+        BulletFlight();
+        Hit();
     }
 
-
-    public void Hit()
+    private void Hit()
     {
-        
-        if (Vector2.Distance(_startPoint, _targetPosition) <= Vector2.Distance(_startPoint, transform.position) && !_targetHitted)
+
+        if (Vector2.Distance(_startPoint, _targetPosition) <= Vector2.Distance(_startPoint, transform.position))
         {
-            _targetHitted = true;
             if (_target != null)
-                _target.TakeDamage(_damage);
+                _target.TakeDamage(_stats.AttackDamage);
             Destroy(gameObject);
         }
     }
 
-    public void BulletFlight()
+    private void BulletFlight()
     {
         Vector2 vector;
         if (_target != null)
@@ -52,23 +44,20 @@ public class CommonBullet : MonoBehaviour, IBullet
                 _targetPosition = _target.transform.position;
         }
 
-        transform.position = new Vector2(transform.position.x, transform.position.y) + vector * _flightSpeed;
+        transform.position = new Vector2(transform.position.x, transform.position.y) + vector * _stats.BulletsSpeed;
 
     }
 
-    public void SetTarget(int damage, float flightSpeed, float attackDisrance, Vector3 startPosition, Monster target, bool isAOE = false, float attackRadius = 0)
+    public void SetTarget(TowerStats stats, Vector3 startPosition, IEnumerable<Monster> targets)
     {
-        _flightSpeed = flightSpeed;
-        _damage = damage;
+        _stats = stats;
         transform.position = startPosition;
         _startPoint = startPosition;
-        _target = target;
-        _isInited = true;
+        _target = targets.First();
     }
 }
 
 public interface IBullet
 {
-    void SetTarget(int damage, float flightSpeed, float attackDistance, Vector3 startPosition, Monster target, bool isAOE = false, float attackRadius = 0);
-    void Hit();
+    void SetTarget(TowerStats stats, Vector3 startPosition, IEnumerable<Monster> targets);
 }

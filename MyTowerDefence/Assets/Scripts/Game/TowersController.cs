@@ -22,7 +22,7 @@ public class TowersController : MonoBehaviour
         var towers = Resources.LoadAll<GameObject>(DataPath.Towers).ToList();
         towers.ForEach(x => {
             var obj = Instantiate(_towerItemTemplate, _storage.transform);
-            obj.GetComponent<TowerShopItem>().InitItem(x);
+            obj.GetComponent<TowerShopItem>().InitItem(x.GetComponent<Tower>());
         });
     }
 
@@ -35,6 +35,7 @@ public class TowersController : MonoBehaviour
     public void closeShop()
     {
         _shop.SetActive(false);
+        tower = null;
     }
 
     public void buildTower()
